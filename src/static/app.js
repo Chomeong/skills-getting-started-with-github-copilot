@@ -41,6 +41,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function createActivityCard(activity) {
+    const card = document.createElement("div");
+    card.className = "activity-card";
+
+    const title = document.createElement("h4");
+    title.textContent = activity.name;
+
+    const description = document.createElement("p");
+    description.textContent = activity.description;
+
+    const participantsSection = document.createElement("div");
+    participantsSection.className = "participants-section";
+
+    const participantsTitle = document.createElement("h5");
+    participantsTitle.textContent = "Participants:";
+
+    const participantsList = document.createElement("ul");
+    participantsList.className = "participants-list";
+
+    // Populate participants list
+    if (activity.participants && activity.participants.length > 0) {
+      activity.participants.forEach((participant) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = participant;
+        participantsList.appendChild(listItem);
+      });
+    } else {
+      const noParticipants = document.createElement("p");
+      noParticipants.textContent = "No participants yet.";
+      participantsSection.appendChild(noParticipants);
+    }
+
+    participantsSection.appendChild(participantsTitle);
+    participantsSection.appendChild(participantsList);
+
+    card.appendChild(title);
+    card.appendChild(description);
+    card.appendChild(participantsSection);
+
+    return card;
+  }
+
   // Handle form submission
   signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
